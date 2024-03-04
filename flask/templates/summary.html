@@ -28,19 +28,15 @@
     </ul>
     <h4>Settlements</h4>
     <ul>
-    {% for ower, ownee, amount, paypal_link in transactions %}
+    {% for ower, ownee, amount, paypal_link in transactions_with_links %}
         <li>
             {{ ower }} owes {{ ownee }} €{{ '%.2f'|format(amount) }}
-            <!-- Ensure the PayPal link is valid and not empty -->
             {% if paypal_link %}
                 <a href="{{ paypal_link }}" target="_blank" class="btn btn-primary">Pay with PayPal</a>
             {% else %}
-                <!-- You can decide to show something else here if there's no PayPal link -->
                 <span>No PayPal link available</span>
             {% endif %}
         </li>
-    {% else %}
-        <li>No settlements required.</li>
     {% endfor %}
     </ul>
 <div class="chart-container" style="position: relative; height:40vh; width:80vw">
