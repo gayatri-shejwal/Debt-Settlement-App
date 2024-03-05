@@ -5,9 +5,7 @@ Welcome to our debt settlement app repository! This project is developed by stud
 ## Features 
 
 - Debt Tracking: Functionality to track and manage debts owed and debts owed to users.
-- .
-- .
-- .
+- Payment Links: Maps participant names to their PayPal emails
 
 ## Technologies Used
 
