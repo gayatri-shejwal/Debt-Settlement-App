@@ -14,12 +14,13 @@ Welcome to our debt settlement app repository! This project is developed by stud
 - Version Control: Git
 
 ## Contact
-
-- Elena Dryer
+### Backend 
 - Minho Kang
-- Monserrat López
 - Milton Mier
 - Giulia Maria Petrilli
 - Camilo Pedraza Jimenez
+### Frontend 
+- Elena Dryer
+- Monserrat López
 - Gayatri Shejwal
   
