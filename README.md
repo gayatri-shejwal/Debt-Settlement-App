@@ -13,7 +13,7 @@ Welcome to our debt settlement app repository! This project is developed by stud
 - User Interface: Flask
 - Version Control: Git
 
-## Contact
+## Groups 
 ### Backend 
 - Minho Kang
 - Milton Mier
