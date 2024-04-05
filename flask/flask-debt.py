@@ -16,8 +16,10 @@ def home():
 @app.route('/add_user', methods=['POST'])
 def add_user():
     real_name = request.form['name']
-    paypal_username = request.form['paypalUsername']  # Adjusted to collect PayPal username
-    participants[real_name] = {'real_name': real_name, 'paypal_username': paypal_username}
+    # Adjusted to collect PayPal username
+    paypal_username = request.form['paypalUsername']
+    participants[real_name] = {
+        'real_name': real_name, 'paypal_username': paypal_username}
     return redirect(url_for('enter_costs'))
 
 
@@ -31,13 +33,16 @@ def submit_cost():
     name = request.form['name']
     description = request.form['description']
     amount = float(request.form['amount'])
-    expenses.append({'name': name, 'description': description, 'amount': amount})
+    expenses.append(
+        {'name': name, 'description': description, 'amount': amount})
     return redirect(url_for('summary'))
+
 
 def calculate_balances(expenses, participants):
     total_expense = sum(expense['amount'] for expense in expenses)
     split_amount = total_expense / len(participants) if participants else 0
-    balances = {participant: -split_amount for participant in participants}  # Start with what each owes
+    # Start with what each owes
+    balances = {participant: -split_amount for participant in participants}
     for expense in expenses:
         balances[expense['name']] += expense['amount']  # Add what they've paid
     return balances
@@ -45,7 +50,8 @@ def calculate_balances(expenses, participants):
 
 def settle_debts(balances):
     # Separate into debtors (owe money) and creditors (owed money)
-    debtors = sorted([(name, amount) for name, amount in balances.items() if amount < 0], key=lambda x: x[1])
+    debtors = sorted([(name, amount) for name, amount in balances.items(
+    ) if amount < 0], key=lambda x: x[1])
     creditors = sorted([(name, -amount) for name, amount in balances.items() if amount > 0], key=lambda x: x[1],
                        reverse=True)
 
@@ -73,6 +79,7 @@ def settle_debts(balances):
 
     return transactions
 
+
 def calculate_and_link_settlements(transactions):
     transactions_with_links = []
     for debtor, creditor, amount in transactions:
@@ -80,18 +87,22 @@ def calculate_and_link_settlements(transactions):
         paypal_username = creditor_info.get('paypal_username', '')
         if paypal_username:
             paypal_link = f"https://www.paypal.com/paypalme/{paypal_username}"
-            transactions_with_links.append((debtor, creditor, amount, paypal_link))
+            transactions_with_links.append(
+                (debtor, creditor, amount, paypal_link))
         else:
             # Handle case where PayPal username is missing
             paypal_link = None
-            transactions_with_links.append((debtor, creditor, amount, paypal_link))
+            transactions_with_links.append(
+                (debtor, creditor, amount, paypal_link))
     return transactions_with_links
 
 
 @app.route('/summary')
 def summary():
-    total = sum(expense['amount'] for expense in expenses)  # Calculate total expenses
-    split_amount = total / len(participants) if participants else 0  # Calculate split amount
+    total = sum(expense['amount']
+                for expense in expenses)  # Calculate total expenses
+    # Calculate split amount
+    split_amount = total / len(participants) if participants else 0
 
     # Calculate the balances based on the current expenses and participants
     balances = calculate_balances(expenses, participants)
