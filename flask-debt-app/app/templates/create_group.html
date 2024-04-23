@@ -1,0 +1,14 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <body>
+        <h1>Create New Group</h1>
+        <form action="/create_group" method="post">
+            <input type="text" name="group_name" placeholder="Group Name" required>
+            <button type="submit">Create Group</button>
+        </form>
+    </body>
+{% endblock %}
