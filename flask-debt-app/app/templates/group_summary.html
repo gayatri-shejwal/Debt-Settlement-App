@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block title %}Group Summary{% endblock %}
+
+{% block content %}
+<body>
+<div class="container">
+    <h2 class="text-center">Group Summary</h2>
+    <p class="text-center">View a summary of the expenses here</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Expense ID</th>
+                <th>Group Name</th> <!-- Add Group Name column -->
+                <th>Payer</th>
+                <th>Debtors</th>
+                <th>Description</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.id }}</td>
+                    <td>{{ expense.group.name }}</td> <!-- Display the group name -->
+                    <td>{{ expense.payer.username }}</td>
+                    <td>
+                        {% for debtor in expense.debtors %}
+                            {{ debtor.username }}
+                            {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ expense.description }}</td>
+                    <td>{{ expense.amount }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+{% endblock %}
