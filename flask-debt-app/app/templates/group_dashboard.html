@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-3">
+    <h2 class="text-center mb-4">Group Dashboard for {{ group.name }}</h2>
+    <div class="row">
+        <!-- Total spent -->
+        <div class="col-md-4 mb-3">
+            <div class="card text-center">
+                <div class="card-header">
+                    Total spent
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title">{{ total_spent }}€</h2>
+                </div>
+            </div>
+        </div>
+        <!-- Past expenses -->
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    Past expenses
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for expense in past_expenses %}
+                        <li class="list-group-item">{{ expense.spender }} spent {{ expense.amount }}€ on {{ expense.description }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <a href="{{ url_for('settle_debts', group_id=group_id) }}" class="btn btn-primary">Settle Debts</a>
+    <a href="{{ url_for('dashboard', group_id=group.id) }}" class="btn btn-primary">Back my Groups</a>
+</div>
+{% endblock %}

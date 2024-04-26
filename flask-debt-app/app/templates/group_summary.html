@@ -5,13 +5,13 @@
 {% block content %}
 <body>
 <div class="container">
-    <h2 class="text-center">Group Summary</h2>
+    <h2 class="text-center">Group Summary for {{ group.name }}</h2>
     <p class="text-center">View a summary of the expenses here</p>
     <table class="table">
         <thead>
             <tr>
                 <th>Expense ID</th>
-                <th>Group Name</th> <!-- Add Group Name column -->
+                <th>Group Name</th>
                 <th>Payer</th>
                 <th>Debtors</th>
                 <th>Description</th>
@@ -22,7 +22,7 @@
             {% for expense in expenses %}
                 <tr>
                     <td>{{ expense.id }}</td>
-                    <td>{{ expense.group.name }}</td> <!-- Display the group name -->
+                    <td>{{ expense.group.name }}</td>
                     <td>{{ expense.payer.username }}</td>
                     <td>
                         {% for debtor in expense.debtors %}
@@ -36,6 +36,8 @@
             {% endfor %}
         </tbody>
     </table>
+    <a href="{{ url_for('settle_debts', group_id=group_id) }}" class="btn btn-primary">Settle Debts</a>
+    <a href="{{ url_for('dashboard', group_id=group.id) }}" class="btn btn-primary">Back my Groups</a>
 </div>
 </body>
 {% endblock %}

@@ -28,12 +28,11 @@ class Expense(db.Model):
     amount = db.Column(db.Float, nullable=False)
     payer_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=False)
-
-    # Relationship to represent the debtors associated with this expense
-    debtors = db.relationship('User', secondary='expense_debtors', backref='expenses_as_debtor')
-
+    debtors = db.relationship('User', secondary='expense_debtors', backref=db.backref('debts'))
+    settled = db.Column(db.Boolean, default=False, nullable=False)
 
 class ExpenseDebtor(db.Model):
     __tablename__ = 'expense_debtors'
     expense_id = db.Column(db.Integer, db.ForeignKey('expense.id'), primary_key=True)
     debtor_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+
