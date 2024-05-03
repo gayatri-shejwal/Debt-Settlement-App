@@ -1,17 +1,37 @@
-<!-- dashboard.html -->
 {% extends 'layout.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}
+    Expense Splitter
+{% endblock %}
 
 {% block content %}
 <body>
-    <div class="container">
-        <h2 class="text-center">Welcome to the Expense Splitter 🤑</h2>
-        <p class="text-center">Enter your name and link your PayPal account to get started.</p>
-        <div class="d-flex justify-content-center mt-4">
-            <a href="{{ url_for('login') }}" class="btn btn-primary mr-2">Login</a>
-            <a href="{{ url_for('register') }}" class="btn btn-secondary">Register</a>
+    <div class="container-fluid h-55 d-flex align-items-center">
+        <div class="row justify-content-center align-items-center">
+
+            <!-- Left container -->
+            <div class="col-md-6 p-3" style="margin-left: -40%;"> <!-- Adjust the margin-left value as needed -->
+                <h1 class="mb-4 font-weight-bold" style="font-size: 4vw;">Welcome to Expense Splitter!</h1>
+                <h4 class="mb-4" style="font-size: 1.8vw;">Expense Splitter is your go-to solution for easily splitting expenses among friends, family, or colleagues.</h4>
+                <div class="d-flex justify-content-center mt-4">
+                    <a href="{{ url_for('register') }}" class="btn btn-round">Try it out!</a>
+                </div>
+            </div>
+
+            <!-- Right container with image -->
+            <div class="col-md-6 text-center">
+                <img src="{{ url_for('static', filename='images/home3.png') }}" alt="Home" style="max-width: 180%; height: auto;">
+            </div>
         </div>
     </div>
 </body>
 {% endblock %}
+
+
+
+
+
+
+
+
+

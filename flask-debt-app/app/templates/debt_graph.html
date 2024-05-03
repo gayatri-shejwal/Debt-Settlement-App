@@ -4,25 +4,61 @@
 <div id="debtGraph" style="height: 500px;"></div>
 
 <script>
-  // Create an array with nodes
-  var nodes = new vis.DataSet({{ nodes | tojson | safe }});
+    // Create an array with nodes
+    var nodes = new vis.DataSet({{ nodes | tojson | safe }});
 
-  // Create an array with edges
-  var edges = new vis.DataSet({{ edges | tojson | safe }});
+    // Create an array with edges
+    var edges = new vis.DataSet({{ edges | tojson | safe }});
 
-  // Create a network
-  var container = document.getElementById('debtGraph');
-  var data = {
-    nodes: nodes,
-    edges: edges
-  };
-  var options = {
-    edges: {
-      arrows: 'to',
-      smooth: true
-    },
-    physics: true // Makes the graph "chaotic" before it stabilizes
-  };
-  var network = new vis.Network(container, data, options);
+    // Create a network
+    var container = document.getElementById('debtGraph');
+    var data = {
+        nodes: nodes,
+        edges: edges
+    };
+    var options = {
+        nodes: {
+            shape: 'dot',  // Round-shaped nodes
+            size: 10,      // Smaller size
+            color: {
+                background: '#F6C667',
+                border: 'black',
+                highlight: {
+                    background: '#F6C667',
+                    border: 'red'
+                }
+            },
+            font: {
+                size: 12
+            },
+            borderWidth: 2
+        },
+        edges: {
+            color: 'grey',  // Grey color for edges
+            arrows: {
+                to: { enabled: true, scaleFactor: 1, type: 'arrow' }
+            },
+            smooth: {
+                enabled: true,
+                type: 'continuous'
+            }
+        },
+        physics: {
+            enabled: true,
+            barnesHut: {
+                gravitationalConstant: -8000,
+                centralGravity: 0.3,
+                springLength: 200,  // Increased spring length for more spacing
+                springConstant: 0.04,
+                damping: 0.09,
+                avoidOverlap: 0.1
+            }
+        },
+        layout: {
+            improvedLayout: true
+        }
+    };
+    var network = new vis.Network(container, data, options);
 </script>
+
 {% endblock %}

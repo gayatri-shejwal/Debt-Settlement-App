@@ -1,47 +1,50 @@
-<!--register.html-->
+<!-- register.html -->
 {% extends 'layout.html' %}
 
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
 <body>
-    <div class="container">
-    <h2 class="text-center">Nice to see you here!</h2>
-    <p class="text-center">Enter your credentials to get started.</p>
-    <body>
-    <form action="/register" method="post">
-        <div class="input-group">
-            <input type="text" name="first_name" placeholder="First Name" required>
-        </div>
-        <div class="input-group">
-            <input type="text" name="last_name" placeholder="Last Name" required>
-        </div>
-        <div class="input-group">
-            <input type="text" name="username" placeholder="Username" required>
-        </div>
-        <div class="input-group">
-            <input type="password" name="password" placeholder="Password" required>
-        </div>
-        <div class="input-group">
-            <input type="text" name="paypal_username" placeholder="PayPal Username" required>
-        </div>
-        <div class="input-group">
-            <button type="submit" class="btn btn-primary">Register</button>
-        </div>
-    </form>
-    <a href="/login">Already have an account? Log in here.</a>
-    </div>
-    <body>
+    <div class="container-fluid h-100 d-flex justify-content-center align-items-center">
+        <div class="row justify-content-center">
+            <div class="col-md-16 p-5 shadow rounded-lg bg-light">
+                <h2 class="text-center mb-4">Nice to see you here!</h2>
+                <p class="text-center">Enter your credentials to get started.</p>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+                <form action="/register" method="post">
+                    <div class="input-group mt-4">
+                        <input type="text" name="first_name" placeholder="First Name" class="form-control" required>
+                    </div>
+                    <div class="input-group mt-3">
+                        <input type="text" name="last_name" placeholder="Last Name" class="form-control" required>
+                    </div>
+                    <div class="input-group mt-3">
+                        <input type="text" name="username" placeholder="Username" class="form-control" required>
+                    </div>
+                    <div class="input-group mt-3">
+                        <input type="password" name="password" placeholder="Password" class="form-control" required>
+                    </div>
+                    <div class="input-group mt-3">
+                        <input type="text" name="paypal_username" placeholder="PayPal Username" class="form-control" required>
+                    </div>
+                    <div class="input-group mt-4">
+                        <button type="submit" class="btn btn-primary-yellow">Register</button>
+                    </div>
+                </form>
+
+                <p class="text-center mt-3">Already have an account? <a href="/login">Log in here</a>.</p>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} mt-4">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
 </body>
 {% endblock %}
-

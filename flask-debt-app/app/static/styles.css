@@ -1,26 +1,66 @@
-/* styles.css */
+/* General Styles */
+
+/* Modify <h1> */
+body h1 {
+    font-size: 30px;
+}
+
+.dashboard-title {
+    /*font-family: 'Geneva', Segoe UI, Tahoma, Verdana, sans-serif;  Modern font */
+    color: #333; /* Text color */
+    text-align: center; /* Centering text */
+    font-size: 30px; /* Font size */
+}
+
+.highlight {
+    background-color: #F6C667; /* Yellow background */
+    padding: 5px 10px; /* Padding around 'friends' */
+    border-radius: 5px; /* Rounded corners for the highlight */
+}
+
+
 html, body {
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-/*
 body {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
 }
- */
 
-/* Add some CSS to stack the input fields */
+.header {
+    background-color: var(--white);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer {
+    background-color: var(--f0f0f6);
+    padding: 20px;
+    text-align: center;
+    margin-top: auto;
+}
+
+.container {
+    padding: 30px;
+}
+
+.text-center {
+    text-align: center;
+}
+
 .input-container {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px; /* space between inputs */
+    margin-bottom: 15px;
 }
 
 .input-group {
-    margin-bottom: 15px; /* or any space you want between the fields */
-    margin-outside: 15px; /* or any space you want between the fields */
+    margin-bottom: 15px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -33,426 +73,271 @@ body {
 input[type="text"],
 input[type="password"],
 select {
-    width: 100%; /* Full width */
-    padding: 10px; /* Add some padding */
-    margin: 8px 0; /* Add some space around them */
-    display: inline-block; /* Ensuring the block fills the width */
-    border: 1px solid #ccc; /* A subtle border */
-    border-radius: 4px; /* Rounded borders for a modern look */
-    box-sizing: border-box; /* To ensure padding doesn't affect width */
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 input[type="text"]:focus,
 input[type="password"]:focus {
-    border-color: #66afe9; /* Highlight color when focused */
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 8px rgba(102, 175, 233, .6); /* Optional: Add a glow effect */
-}
-
-/* Add some CSS to style the button */
-button {
-    background-color: #4CAF50; /* A nice shade of green */
-    color: white; /* Text color */
-    /* padding: 14px 20px;  Padding for a larger clickable area */
-    padding: 10px 15px; /* Padding for a larger clickable area */
-    margin: 8px 0; /* Margin to separate it from other elements */
-    border: none; /* No border */
-    border-radius: 4px; /* Rounded corners */
-    cursor: pointer; /* To show it's clickable */
-    text-decoration: none; /* No underline for links styled as buttons */
-}
-
-button:hover {
-    background-color: #45a049; /* Darker shade when hovered */
-}
-
-/* Add some CSS to style drop downs */
-select {
-    background-color: white; /* Background color */
-    padding: 10px; /* Padding inside the dropdown */
-    margin: 8px 0; /* Margin around the dropdown */
-    border: 1px solid #ccc; /* Border similar to inputs */
-    border-radius: 4px; /* Rounded borders */
-}
-
-/* Style the dropdown arrow (this part is tricky and might not work consistently across browsers) */
-select::-ms-expand {
-    display: none; /* Hide the default dropdown arrow in IE */
-}
-
-/* Add some global padding and font adjustments */
-body {
-    padding-top: 20px;
-    font-family: 'Arial', sans-serif;
-}
-
-/* Style the headings */
-h2, h3 {
-    color: #333;
-    margin-bottom: 15px;
-}
-
-/* Style the list of groups */
-.list-group-item {
-    background-color: #f8f9fa;
-    border: 1px solid #e1e4e8;
-}
-
-.list-group-item a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.list-group-item a:hover {
-    text-decoration: underline;
-}
-
-/* Style the forms */
-.form-group {
-    margin-bottom: 1rem;
-}
-
-.form-control {
-    display: block;
-    width: 100%;
-    padding: .375rem .75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-
-.form-control:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
-}
-
-/* Style the buttons */
-.btn-primary {
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-}
-
-.btn-primary:hover {
-    color: #fff;
-    background-color: #0069d9;
-    border-color: #0062cc;
-}
-
-.btn-secondary {
-    color: #fff;
-    background-color: #6c757d;
-    border-color: #6c757d;
-}
-
-.btn-secondary:hover {
-    color: #fff;
-    background-color: #5a6268;
-    border-color: #545b62;
-}
-
-/* Style the flash messages */
-.flash-messages .alert {
-    margin-bottom: 1rem;
-}
-
-/* Base styling for the options container */
-.container {
-    padding-top: 20px;
-}
-
-/* Centralize the content */
-.text-center {
-    text-align: center;
-}
-
-/* Styling for cards */
-.option-card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    border-radius: 5px; /* 5px rounded corners */
-}
-
-/* Add some padding inside the card */
-.option-card .card-body {
-    padding: 2rem;
-}
-
-/* On mouse-over, add a deeper shadow */
-.option-card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-/* Icon styling */
-.fas {
-    margin-right: 10px;
-    font-size: 1.5rem;
-}
-
-/* Style for buttons with full-width link */
-.stretched-link {
-    text-decoration: none;
-    display: block;
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-    padding: .375rem .75rem;
-    border-radius: .25rem;
-    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
-}
-
-.stretched-link:hover,
-.stretched-link:focus {
-    text-decoration: none;
-    background-color: #0056b3;
-}
-
-/* Secondary button style */
-.btn-info {
-    color: #fff;
-    background-color: #17a2b8;
-    border-color: #17a2b8;
-}
-
-.btn-info:hover {
-    color: #fff;
-    background-color: #138496;
-    border-color: #117a8b;
+    border-color: var(--saffron);
+    outline: none;
+    box-shadow: 0 0 8px rgb(247, 250, 255);
 }
 
 
-/* Center the main heading */
-.text-center {
-    text-align: center;
+h2,
+h3 {
+    color: var(--eerie-black);
+    margin-bottom: 20px;
 }
 
-/* Card styling */
-.card {
-    cursor: pointer;
-    transition: transform .2s; /* Animation for hover effect */
+p {
+    color: var(--eerie-black);
 }
 
-.card:hover {
-    transform: scale(1.05); /* Scale cards on hover */
-}
-
-.card-body {
-    position: relative; /* For positioning the stretched link */
-}
-
-.stretched-link::after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-    pointer-events: auto;
-    content: "";
-    background-color: rgba(0,0,0,0);
-}
-
-/* Flash messages styling */
-.flash-messages .alert {
-    margin-bottom: 1rem;
-}
-
-/* Add to your CSS file or within a <style> tag in 'layout.html' */
-.container {
-    padding: 20px;
-}
-
+/* Cards */
 .card {
     margin-top: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .card-header {
-    background-color: #f8f9fa;
+    background-color: var(--periwinkle);
 }
 
 .card-body {
     padding: 20px;
 }
 
-.form-group {
-    margin-bottom: 15px;
+/* New Card Layout */
+.new-card {
+    margin-top: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative; /* Add position relative */
 }
 
-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    display: block;
+.new-card-header {
+    background-color: var(--periwinkle);
+    color: #333; /* Adjust header text color for better visibility */
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.form-control {
-    border-radius: 4px;
-    border: 1px solid #ced4da;
-    padding: 10px;
-    font-size: 16px;
-}
 
-.btn-success {
-    color: #fff;
-    background-color: #28a745;
-    border-color: #28a745;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-}
-
-.btn-success:hover {
-    background-color: #218838;
-    border-color: #1e7e34;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .card {
-        margin-top: 10px;
-    }
-}
-
-/* Add to your CSS file or within a <style> tag in 'layout.html' */
-
-.container {
-    padding-top: 30px;
-}
-
-.card {
-    margin-bottom: 30px;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-.card-title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.card-body {
-    padding: 30px;
-}
-
-.form-label {
-    font-size: 18px;
+.new-card-title {
+    margin-top: 0;
     margin-bottom: 10px;
-    display: block;
-    color: #555;
-}
-
-.form-control {
-    font-size: 16px;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-.btn-primary {
     font-size: 18px;
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: none;
-    background-color: #007bff;
-    color: white;
+    font-weight: bold;
 }
 
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-
-/* Style for custom checkbox container */
-.checkbox-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.btn-group-toggle .btn {
-    margin: 5px;
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-}
-
-/* Default state of the button */
-.btn-outline-primary {
-    color: #007bff;
-    background-color: #fff;
-    border-color: #007bff;
-    transition: color 0.3s ease-out, background-color 0.3s ease-out, border-color 0.3s ease-out;
-}
-
-/* When the checkbox is checked, change the button color */
-.btn-outline-primary input[type="checkbox"]:checked + label {
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-}
-
-/* Hover effect */
-.btn-outline-primary:hover {
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-}
-
-/* Focus effect */
-.btn-outline-primary:focus,
-.btn-outline-primary.focus {
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-/* Active effect */
-.btn-outline-primary:not(:disabled):not(.disabled).active,
-.btn-outline-primary:not(:disabled):not(.disabled):active {
-    color: #fff;
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
-
-/* Ensure that the input checkbox is not visible */
-.btn
-
-/* settle-debt page */
-.card {
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 5px rgba(0,0,0,.15);
-}
-
-.card-title {
-    font-size: 1.25rem; /* 20px */
+.new-card-icon {
+    float: left;
+    margin-right: 15px; /* Increase the margin to create more space */
+    font-size: 24px;
     color: #333;
 }
 
-.card-text {
-    font-size: 1rem; /* 16px */
-    color: #555;
+
+.new-card-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
+a {
+    color: var(--saffron);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.cta-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.cta-buttons a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: #231F20;
+    font-weight: bold;
+}
+
+.cta-buttons .signup-btn {
+    background-color: #F6C667;
+    color: #231F20;
+    padding: 10px 20px;
+    border-radius: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.cta-buttons .signup-btn:hover {
+    background-color: #E6B960;
+}
+
+.cta-buttons .logout-btn {
+    background-color: #f0f0f0;
+    color: #F6C667;
+    border: 2px solid #F6C667;
+    padding: 10px 20px;
+    border-radius: 15px;
+    margin-right: 20px !important;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.cta-buttons .logout-btn:hover {
+    background-color: #e6e6e6;  /* Slightly darken the background on hover for visual feedback */
+
+}
+
+.cta-buttons .logout-btn:active {
+    background-color: #d9d9d9;  /* Darken the background further when the button is clicked */
+    border-color: #E6B960 !important;
+}
+
+
+.btn-round {
+    color: white !important; /* Set text color to white */
+    background-color: #333333 !important;
+    border: 2px solid #333333;  /* Added 'solid' and '2px' to specify border style and width */
+    padding: 10px 20px;
+    border-radius: 15px;
+    margin-right: 20px !important;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-round:hover {
+    background-color: #333;  /* Slightly darken the background on hover for visual feedback */
+}
+
+.btn-round:active {
+    background-color: #333;  /* Darken the background further when the button is clicked */
+    border: #231F20 !important;
+}
+
+/* Add a new CSS class for the PayPal button */
+.paypal-button {
+    color: #f0f0f0 !important; /* White text */
+    background-color: mediumblue !important;
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: flex-start; /* Align to the left */
+    margin-bottom: 10px; /* Adjust margin as needed */
+}
+
+.paypal-button .btn {
+    margin-right: 10px; /* Add space between button and text */
+}
+
+
+.content-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+.btn-warning.btn-lg {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
+.btn-secondary.btn-lg {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
+.btn-paypal {
+    background-color: #F6C667;
+    color: #231F20;
+    padding: 10px 20px;
+    border-radius: 15px;
+    transition: background-color;
+}
+
+.btn-paypal:hover {
+    background-color: #E6B960;
+}
+
+/* button styles */
 .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #333 !important; /* Dark grey background */
+    color: white !important; /* White text */
+    border: none !important;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center !important;
+    display: inline-block !important;
+    margin: 10px auto;
+    cursor: pointer;
 }
 
-.btn-secondary {
-    background-color: #6c757d;
-    border-color: #6c757d;
+.btn-primary-yellow {
+    background-color: #F6C667 !important; /* Yellow background */
+    color: #333 !important; /* Dark grey text */
+    border: none !important;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center !important;
+    display: inline-block !important;
+    margin: 10px auto;
+    cursor: pointer;
+    /* Add bold text */
+    font-weight: bold !important;
 }
 
-.my-2 {
-    margin-top: .5rem;
-    margin-bottom: .5rem;
+.center-button {
+    display: block; /* or 'inline-block' if you don't want it to take full width */
+    margin: 10px auto; /* Center the element horizontally */
+    text-align: center; /* Ensures text inside is centered, useful if display is block */
 }
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Centers children horizontally */
+    align-items: center; /* Centers children vertically, if needed */
+}
+
+.flash-messages .alert {
+    display: inline-block;
+    position: fixed;
+    top: 20px; /* Adjust this value as needed to position it lower or higher */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alert-error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+
+
+
+
+
 
