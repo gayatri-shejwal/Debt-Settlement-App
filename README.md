@@ -1,6 +1,9 @@
-# DSA--Debt-Settlment---Group-6
+# Dept Settlement (Group 6)
+## Data Structures and Algorithms 2024
 
-Welcome to our debt settlement app repository! This project is developed by students of the Hertie School for a Data Structures and Algorithm course. Our aim is to create an application that assists users in managing and settling their debts effectively.
+Welcome to our debt settlement app repository! This project is developed by students of the [Hertie School](https://www.hertie-school.org/en/) for a Data Structures and Algorithm course. We aim to create an application that assists users in managing and settling their debts effectively.
+
+Link to our prototype: tba
 
 ## Features 
 
@@ -9,7 +12,7 @@ Welcome to our debt settlement app repository! This project is developed by stud
 
 ## Technologies Used
 
-- Programming : Python 
+- Programming: Python 
 - User Interface: Flask
 - Version Control: Git
 
