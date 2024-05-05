@@ -16,7 +16,7 @@ def init_routes(app):
             first_name = request.form['first_name']
             last_name = request.form['last_name']
             username = request.form['username']
-            password = request.form['password']  # Hash this password before storing
+            password = request.form['password']
             paypal_username = request.form['paypal_username']
 
             # Check if username already exists
@@ -57,10 +57,19 @@ def init_routes(app):
         user_groups = current_user.groups  # Get all groups of the current user
         return render_template('dashboard.html', user_groups=user_groups)
 
-
     @app.route('/create_group', methods=['GET', 'POST'])
     @login_required
     def create_group():
+        """
+        Route to create a new group.
+
+        If the request method is POST, it creates a new group with the given name
+        and adds the current user as a member.
+
+        Returns:
+            Redirect: Redirects to the dashboard after creating the group.
+            Rendered Template: Renders the 'create_group.html' template for GET requests.
+        """
         if request.method == 'POST':
             group_name = request.form['group_name']
             new_group = Group(name=group_name)
@@ -71,10 +80,18 @@ def init_routes(app):
             return redirect(url_for('dashboard'))
         return render_template('create_group.html')
 
-
     @app.route('/join_group', methods=['GET', 'POST'])
     @login_required
     def join_group():
+        """
+        Route to join an existing group.
+
+        If the request method is POST, it adds the current user to the group if found.
+
+        Returns:
+            Redirect: Redirects to the dashboard after joining the group.
+            Rendered Template: Renders the 'join_group.html' template for GET requests.
+        """
         if request.method == 'POST':
             group_name = request.form['group_name']
             group = Group.query.filter_by(name=group_name).first()
@@ -87,33 +104,62 @@ def init_routes(app):
             return redirect(url_for('dashboard'))
         return render_template('join_group.html')
 
-
     @app.route('/group_intermediate/<group_name>', methods=['GET'])
     @login_required
     def group_intermediate(group_name):
+        """
+        Route to display an intermediate page before entering a group.
+
+        Args:
+            group_name (str): The name of the group.
+
+        Returns:
+            Rendered Template: Renders the 'group_intermediate.html' template with group information.
+        """
         group = Group.query.filter_by(name=group_name).first()
         if not group:
             abort(404)  # Group not found, return 404 error
         return render_template('group_intermediate.html', group=group, group_id=group.id)
 
-
     @app.route('/add_expense/<int:group_id>', methods=['GET', 'POST'])
     @login_required
     def add_expense(group_id):
+        """
+        Route to add an expense to a group.
+
+        Args:
+            group_id (int): The ID of the group.
+
+        Returns:
+            Redirect: Redirects to the group dashboard after adding the expense.
+            Rendered Template: Renders the 'add_expense.html' template with group and participant information.
+        """
         group = Group.query.get(group_id)
+        if not group:
+            flash("Group not found.", "error")
+            return redirect(url_for('dashboard'))
+
         participants = group.members
 
         if request.method == 'POST':
             payer_id = request.form['payer_id']
             description = request.form['description']
-            amount = float(request.form['amount'])
+            amount = request.form['amount']
+
+            # Validate the amount to ensure it's a positive integer
+            try:
+                amount = float(amount)  # Convert input to float first to handle inputs like "100.00"
+                if amount <= 0:
+                    raise ValueError("The amount must be positive.")
+            except ValueError as e:
+                flash(f"Invalid amount: {str(e)}", 'error')
+                return render_template('add_expense.html', group=group, participants=participants)
 
             # Get list of selected debtors
             selected_debtors = request.form.getlist('debtors')
 
             new_expense = Expense(payer_id=payer_id, group_id=group_id, description=description, amount=amount)
             db.session.add(new_expense)
-            db.session.commit()
 
             # Add selected debtors to the expense
             for debtor_id in selected_debtors:
@@ -201,17 +247,20 @@ def init_routes(app):
             transaction['creditor_name'] = "You" if creditor.id == current_user.id else creditor.first_name
 
             transaction['creditor_paypal_username'] = creditor.paypal_username
-            transaction['amount'] = "${:.2f}".format(transaction['amount'])
+            transaction['amount'] = "{:.2f}€".format(transaction['amount'])
 
             # Prepare a message for display in the template
             transaction['message'] = create_personalized_message(transaction, debtor, creditor)
 
-        # Sort transactions to show current user's debts first
+        # Important: Sort transactions to show current user's debts first
         sorted_transactions = sorted(transactions, key=lambda t: t['debtor'] == current_user.id, reverse=True)
 
         return render_template('settle_debts.html', group=group, transactions=sorted_transactions)
 
     def create_personalized_message(transaction, debtor, creditor):
+        """
+        Create a personalized message for the transaction.
+        """
         if debtor.id == current_user.id:
             return f"You owe {transaction['creditor_name']} {transaction['amount']}"
         elif creditor.id == current_user.id:
@@ -223,6 +272,12 @@ def init_routes(app):
     @app.route('/debt_graph/<int:group_id>', methods=['GET'])
     @login_required
     def debt_graph(group_id):
+        """
+        Route to display a debt graph for a group.
+
+        :param group_id:
+        :return:
+        """
         group = Group.query.get_or_404(group_id)
         nodes = set()
         edges = []

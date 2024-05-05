@@ -1,21 +1,20 @@
-/* General Styles */
+/* static/styles.css */
 
-/* Modify <h1> */
 body h1 {
     font-size: 30px;
 }
 
 .dashboard-title {
     /*font-family: 'Geneva', Segoe UI, Tahoma, Verdana, sans-serif;  Modern font */
-    color: #333; /* Text color */
-    text-align: center; /* Centering text */
-    font-size: 30px; /* Font size */
+    color: #333;
+    text-align: center;
+    font-size: 30px;
 }
 
 .highlight {
-    background-color: #F6C667; /* Yellow background */
-    padding: 5px 10px; /* Padding around 'friends' */
-    border-radius: 5px; /* Rounded corners for the highlight */
+    background-color: #F6C667;
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
 
@@ -120,12 +119,12 @@ p {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     overflow: hidden;
-    position: relative; /* Add position relative */
+    position: relative;
 }
 
 .new-card-header {
     background-color: var(--periwinkle);
-    color: #333; /* Adjust header text color for better visibility */
+    color: #333;
     padding: 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -140,7 +139,7 @@ p {
 
 .new-card-icon {
     float: left;
-    margin-right: 15px; /* Increase the margin to create more space */
+    margin-right: 15px;
     font-size: 24px;
     color: #333;
 }
@@ -211,9 +210,9 @@ a:hover {
 
 
 .btn-round {
-    color: white !important; /* Set text color to white */
+    color: white !important;
     background-color: #333333 !important;
-    border: 2px solid #333333;  /* Added 'solid' and '2px' to specify border style and width */
+    border: 2px solid #333333;
     padding: 10px 20px;
     border-radius: 15px;
     margin-right: 20px !important;
@@ -230,14 +229,14 @@ a:hover {
     border: #231F20 !important;
 }
 
-/* Add a new CSS class for the PayPal button */
+/* New CSS class for the PayPal button */
 .paypal-button {
     color: #f0f0f0 !important; /* White text */
     background-color: mediumblue !important;
     display: flex;
     align-items: center; /* Center vertically */
     justify-content: flex-start; /* Align to the left */
-    margin-bottom: 10px; /* Adjust margin as needed */
+    margin-bottom: 10px;
 }
 
 .paypal-button .btn {
@@ -303,9 +302,9 @@ a:hover {
 }
 
 .center-button {
-    display: block; /* or 'inline-block' if you don't want it to take full width */
+    display: block;
     margin: 10px auto; /* Center the element horizontally */
-    text-align: center; /* Ensures text inside is centered, useful if display is block */
+    text-align: center;
 }
 
 .button-container {

@@ -1,6 +1,15 @@
 # app/algorithm.py
 
 def calculate_debts(group_id):
+    '''
+    Calculate debts within a group based on expenses.
+
+    Args:
+        group_id (int): The ID of the group.
+
+    Returns:
+        list: List of transactions indicating debts to be settled.
+    '''
     from .models import Group  # Import here to avoid circular imports
     group = Group.query.get(group_id)
     if not group:
@@ -8,6 +17,7 @@ def calculate_debts(group_id):
     expenses = group.expenses
     balances = {}
 
+    # Calculate balances for each debtor and creditor
     for expense in expenses:
         if len(expense.debtors) > 0:
             amount_per_debtor = expense.amount / len(expense.debtors)
@@ -23,12 +33,22 @@ def calculate_debts(group_id):
 
 
 def simplify_debts(balances):
+    '''
+    Simplify debts by minimizing transactions.
+
+    Args:
+        balances (dict): A dictionary containing balances for each participant.
+
+    Returns:
+        list: List of transactions indicating debts to be settled.
+    '''
     balances_copy = balances.copy()
     sorted_balances = sorted(balances_copy.items(), key=lambda x: x[1])
     debtors = 0
     creditors = len(sorted_balances) - 1
     transactions = []
 
+    # Simplify debts by transferring amounts between debtors and creditors
     while debtors <= creditors:
         debtor, debtor_balance = sorted_balances[debtors]
         creditor, creditor_balance = sorted_balances[creditors]
@@ -58,7 +78,3 @@ def simplify_debts(balances):
             creditors -= 1
 
     return transactions
-
-# Each transaction in the list transactions is a dictionary with string keys,
-# allowing other parts of your Flask application that depend on this structure
-# (like settle_debts route) to function properly without needing further modifications
