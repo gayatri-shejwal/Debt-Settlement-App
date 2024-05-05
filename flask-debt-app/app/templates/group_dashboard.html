@@ -1,35 +1,102 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<h1 class="dashboard-title">Group Dashboard for <span class="highlight">{{ group.name }}</span></h1>
 <div class="container mt-3">
-    <h2 class="text-center mb-4">Group Dashboard for {{ group.name }}</h2>
     <div class="row">
-        <!-- Total spent -->
-        <div class="col-md-4 mb-3">
-            <div class="card text-center">
-                <div class="card-header">
-                    Total spent
+        <!-- Network Graph on the left -->
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-header text-center font-weight-bold">
+                    Group's Debt Relationships
                 </div>
-                <div class="card-body">
-                    <h2 class="card-title">{{ total_spent }}€</h2>
+                <div class="card-body" style="padding: 30px;">
+                    <div id="debtGraph" style="height: 400px;"></div>
+                    <small class="text-muted mt-3">Nodes represent group members, and edges represent debts between them.</small>
+                    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var nodes = new vis.DataSet({{ nodes | tojson | safe }});
+                        var edges = new vis.DataSet({{ edges | tojson | safe }});
+
+                        var container = document.getElementById('debtGraph');
+                        var data = { nodes: nodes, edges: edges };
+                        var options = {
+                            nodes: {
+                                shape: 'dot',  // Round-shaped nodes
+                                size: 10,      // Smaller size
+                                color: {
+                                    background: '#F6C667',
+                                    border: 'black',
+                                    highlight: {
+                                        background: '#F6C667',
+                                        border: 'red'
+                                    }
+                                },
+                                font: {
+                                    size: 12
+                                },
+                                borderWidth: 2
+                            },
+                            edges: {
+                                color: 'grey',  // Grey color for edges
+                                arrows: {
+                                    to: { enabled: true, scaleFactor: 1, type: 'arrow' }
+                                },
+                                smooth: {
+                                    enabled: true,
+                                    type: 'continuous'
+                                }
+                            },
+                            physics: {
+                                enabled: true,
+                                barnesHut: {
+                                    gravitationalConstant: -8000,
+                                    centralGravity: 0.3,
+                                    springLength: 200,  // Increased spring length for more spacing
+                                    springConstant: 0.04,
+                                    damping: 0.09,
+                                    avoidOverlap: 0.1
+                                }
+                            },
+                            layout: {
+                                improvedLayout: true
+                            }
+                        };
+                        var network = new vis.Network(container, data, options);
+                    });
+                    </script>
                 </div>
             </div>
         </div>
-        <!-- Past expenses -->
-        <div class="col-md-4 mb-3">
+
+        <!-- Total spent and past expenses on the right -->
+        <div class="col-md-6">
+            <!-- Total spent -->
             <div class="card">
-                <div class="card-header">
-                    Past expenses
+                <div class="card-header text-center font-weight-bold">
+                    Total Spent
+                </div>
+                <div class="card-body text-center">
+                    <h2 class="card-title">{{ total_spent }}€</h2>
+                </div>
+            </div>
+            <!-- Past expenses -->
+            <div class="card mb-3">
+                <div class="card-header text-center font-weight-bold">
+                    Past Expenses
                 </div>
                 <ul class="list-group list-group-flush">
                     {% for expense in past_expenses %}
-                        <li class="list-group-item">{{ expense.spender }} spent {{ expense.amount }}€ on {{ expense.description }}</li>
+                    <li class="list-group-item">{{ expense.spender }} spent <b>{{ expense.amount }}€</b> on {{ expense.description }}</li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
     </div>
-    <a href="{{ url_for('settle_debts', group_id=group_id) }}" class="btn btn-primary">Settle Debts</a>
-    <a href="{{ url_for('dashboard', group_id=group.id) }}" class="btn btn-primary">Back my Groups</a>
+    <div  class="button-container">
+        <a href="{{ url_for('settle_debts', group_id=group.id) }}" class="btn btn-primary center-button">Settle Debts</a>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary center-button">Back to My Groups</a>
+    </div>
 </div>
 {% endblock %}

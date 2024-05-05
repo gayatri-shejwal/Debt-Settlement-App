@@ -1,71 +1,67 @@
+<!-- groups.html -->
 {% extends 'layout.html' %}
 
 {% block title %}Groups{% endblock %}
 
 {% block content %}
 <body>
-    <div class="container">
-        <h2 class="text-center">Welcome to your Dashboard, {{ current_user.username }}!</h2>
+    <div class="container-fluid h-100 d-flex justify-content-center align-items-center">
+        <div class="row justify-content-center">
+            <div class="col-md-15 p-5 shadow rounded-lg bg-light">
+                <h2 class="text-center mb-4">Welcome to your Dashboard, {{ current_user.first_name }}!</h2>
 
-        <!-- Tabs for Create and Join group -->
-        <ul class="nav nav-tabs mt-5" id="groupTabs" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="create-tab" data-toggle="tab" href="#createGroup" role="tab" aria-controls="createGroup" aria-selected="true"><i class="fas fa-users"></i> Create a New Group</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="join-tab" data-toggle="tab" href="#joinGroup" role="tab" aria-controls="joinGroup" aria-selected="false"><i class="fas fa-user-plus"></i> Join a Group</a>
-            </li>
-        </ul>
+                <!-- Tabs for Create and Join group -->
+                <ul class="nav nav-tabs mt-5" id="groupTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="create-tab" data-toggle="tab" href="#createGroup" role="tab" aria-controls="createGroup" aria-selected="true"><i class="fas fa-users"></i> Create a New Group</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="join-tab" data-toggle="tab" href="#joinGroup" role="tab" aria-controls="joinGroup" aria-selected="false"><i class="fas fa-user-plus"></i> Join a Group</a>
+                    </li>
+                </ul>
 
-        <!-- Tab panes for Create and Join group -->
-        <div class="tab-content" id="groupTabsContent">
-            <div class="tab-pane fade show active" id="createGroup" role="tabpanel" aria-labelledby="create-tab">
-                <div class="create-group mt-4">
-                    <form method="POST" action="{{ url_for('create_group') }}" class="form-group">
-                        <label for="group_name" class="form-label">Enter a name for your new group:</label>
-                        <input type="text" id="group_name" name="group_name" class="form-control" required>
-                        <button type="submit" class="btn btn-primary mt-3"><i class="fas fa-plus"></i> Create Group</button>
-                    </form>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="joinGroup" role="tabpanel" aria-labelledby="join-tab">
-                <div class="join-group mt-4">
-                    <form method="POST" action="{{ url_for('join_group') }}" class="form-group">
-                        <label for="group_name" class="form-label">Enter Group Name:</label>
-                        <input type="text" id="group_name" name="group_name" class="form-control" required>
-                        <button type="submit" class="btn btn-secondary mt-3"><i class="fas fa-sign-in-alt"></i> Join Group</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="my-4">
-            <label class="form-label">Your Groups:</label>
-            <div class="row">
-                {% for group in user_groups %}
-                    <div class="col-md-4">
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <h5 class="card-title"><i class="fas fa-layer-group"></i> {{ group.name }}</h5>
-                                <a href="{{ url_for('group_intermediate', group_name=group.name) }}" class="stretched-link"></a>
-                            </div>
+                <!-- Tab panes for Create and Join group -->
+                <div class="tab-content" id="groupTabsContent">
+                    <div class="tab-pane fade show active" id="createGroup" role="tabpanel" aria-labelledby="create-tab">
+                        <div class="create-group mt-4">
+                            <form method="POST" action="{{ url_for('create_group') }}" class="form-group">
+                                <label for="group_name" class="form-label">Enter a name for your new group:</label>
+                                <input type="text" id="group_name" name="group_name" class="form-control" required>
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Create Group</button>
+                            </form>
                         </div>
                     </div>
-                {% endfor %}
+                    <div class="tab-pane fade" id="joinGroup" role="tabpanel" aria-labelledby="join-tab">
+                        <div class="join-group mt-4">
+                            <form method="POST" action="{{ url_for('join_group') }}" class="form-group">
+                                <label for="group_name_join" class="form-label">Enter Group Name:</label>
+                                <input type="text" id="group_name_join" name="group_name" class="form-control" required>
+                                <button type="submit" class="btn btn-secondary mt-3"><i class="fas fa-sign-in-alt"></i> Join Group</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-4">
+                    <label class="form-label">Your Groups:</label>
+                    <div class="row">
+                        {% for group in user_groups %}
+                            <div class="col-md-4">
+                                <div class="new-card mb-4">
+                                    <div class="new-card-header">
+                                        <h5 class="new-card-title"><i class="fas fa-user-friends"></i> {{ group.name }}</h5>
+                                    </div>
+                                    <div class="new-card-body">
+                                        <a href="{{ url_for('group_intermediate', group_name=group.name) }}" class="stretched-link"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
-
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <div class="flash-messages mt-4">
-                    <ul class="list-group">
-                        {% for message in messages %}
-                            <li class="list-group-item alert alert-warning">{{ message }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-        {% endwith %}
     </div>
 </body>
 {% endblock %}
+
