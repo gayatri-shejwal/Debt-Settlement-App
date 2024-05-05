@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block title %}Settle Debts{% endblock %}
+
+{% block content %}
+<body>
+<div class="container">
+    <h2 class="text-center">Debt Settlement for {{ group.name }}</h2>
+    <p class="text-center">View settled debts</p>
+    {% for transaction in transactions %}
+    <div class="card my-2 {{ 'bg-light' if transaction.debtor_name != 'You' }}">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <p class="mb-0">
+                {% if transaction.debtor_name == 'You' %}
+                You owe <b>{{ transaction.amount }}</b> to {{ transaction.creditor_name }}
+                {% else %}
+                {{ transaction.debtor_name }} owes {{ transaction.creditor_name }} <b>{{ transaction.amount }}</b>
+                {% endif %}
+            </p>
+            {% if transaction.debtor_name == 'You' %}
+            <a href="https://www.paypal.com/paypalme/{{ transaction.creditor_paypal_username }}/{{ transaction.amount }}"
+               class="btn btn-primary"
+               target="_blank">
+                Pay with PayPal
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+    <a href="{{ url_for('group_summary', group_id=group.id) }}" class="btn btn-primary">Back to Summary</a>
+</div>
+</body>
+{% endblock %}

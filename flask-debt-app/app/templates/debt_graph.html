@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div id="debtGraph" style="height: 500px;"></div>
+
+<script>
+  // Create an array with nodes
+  var nodes = new vis.DataSet({{ nodes | tojson | safe }});
+
+  // Create an array with edges
+  var edges = new vis.DataSet({{ edges | tojson | safe }});
+
+  // Create a network
+  var container = document.getElementById('debtGraph');
+  var data = {
+    nodes: nodes,
+    edges: edges
+  };
+  var options = {
+    edges: {
+      arrows: 'to',
+      smooth: true
+    },
+    physics: true // Makes the graph "chaotic" before it stabilizes
+  };
+  var network = new vis.Network(container, data, options);
+</script>
+{% endblock %}
