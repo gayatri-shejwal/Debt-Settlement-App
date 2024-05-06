@@ -129,7 +129,7 @@ def init_routes(app):
     @login_required
     def add_expense(group_name):
         """
-        Route to add an expense to a group.
+        Route to add an expense to a group based on the group's name.
 
         Args:
             group_name (str): The name of the group.
@@ -163,7 +163,7 @@ def init_routes(app):
             # Get list of selected debtors
             selected_debtors = request.form.getlist('debtors')
 
-            new_expense = Expense(payer_id=payer_id, group_id=group_name, description=description, amount=amount)
+            new_expense = Expense(payer_id=payer_id, group_id=group.id, description=description, amount=amount)
             db.session.add(new_expense)
 
             # Add selected debtors to the expense
