@@ -18,13 +18,11 @@ Link to our prototype: [here](http://elena3er.pythonanywhere.com/)
 - User Interface: Flask
 - Version Control: Git
 
-## Groups 
-### Backend 
+## Team members 
+- Gayatri Shejwal
+- Monserrat López
 - Minho Kang
 - Milton Mier
 - Giulia Maria Petrilli
 - Camilo Pedraza Jimenez
-### Frontend 
 - Elena Dreyer
-- Monserrat López
-- Gayatri Shejwal
